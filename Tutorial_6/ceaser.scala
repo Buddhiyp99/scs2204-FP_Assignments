@@ -1,21 +1,59 @@
-object ceaser extends App {
-    val alphabet = 'A' to 'Z'
+object caeserCipher{
 
-    val shift = (scala.io.StdIn.readLine("shift by: ").toInt + alphabet.size)%alphabet.size
-    val input = scala.io.StdIn.readLine("user input: ")
+val alphabet = 'A' to 'Z'
 
-    val output=input.map((ch:Char)=>{
-        val index=alphabet.indexOf(ch.toUpper)
+def encrypt():Any={
+val scrtMsg = scala.io.StdIn.readLine("Secret Message: ")
+val shift = (scala.io.StdIn.readLine("Shift By: ").toInt + alphabet.size) % alphabet.size
 
-        if (index == -1){
-            ch
-        }
-        else{
-            alphabet((index+shift)%alphabet.size)
-        }
+val encryptedMsg = scrtMsg.map((c:Char) => {
 
-    })
+val ch = alphabet.indexOf(c.toUpper)
 
-    print(output)
+if(ch == -1) {
+c
+}
+else {
+alphabet((ch + shift) % alphabet.size)
+}
+});
+
+println(encryptedMsg);
+}
+
+def decrypt():Any={
+val scrtMsg = scala.io.StdIn.readLine("Encrypted Message: ")
+val shift = (alphabet.size - scala.io.StdIn.readLine("Reversed By: ").toInt) % alphabet.size
+
+val decryptedMsg = scrtMsg.map((c:Char) => {
+
+val ch = alphabet.indexOf(c.toUpper)
+
+if(ch == -1) {
+c
+}
+else {
+alphabet((ch + shift) % alphabet.size)
+}
+});
+println(decryptedMsg);
+}
+
+def main(args: Array[String]) = {
+
+val x = scala.io.StdIn.readLine("1 encryption or 2 decryption : ").toInt
+
+x match
+case 1 => encrypt()
+case 2 => decrypt()
+case _ => println("Invalid input")
+
 
 }
+
+
+}
+
+
+
+
